@@ -1,0 +1,20 @@
+services:
+  app:
+    image: tiangolo/uvicorn-gunicorn-fastapi:python3.9
+    restart: always
+    environment:
+      - PORT=8000
+    volumes:
+      - ./app:/app
+    expose:
+      - 8000
+
+  envoy:
+    image: envoyproxy/envoy:v1.24.0
+    container_name: envoy
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml
+    ports:
+      - "8080:8080"
+    depends_on:
+      - app
