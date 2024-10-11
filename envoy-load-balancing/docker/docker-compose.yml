@@ -1,0 +1,19 @@
+services:
+  service1:
+    build:
+      context: ../services/service1
+    ports:
+      - "8001:8000"
+
+  service2:
+    build:
+      context: ../services/service2
+    ports:
+      - "8002:8000"
+
+  envoy:
+    image: envoyproxy/envoy:v1.27.0
+    volumes:
+      - ../envoy/envoy.yaml:/etc/envoy/envoy.yaml
+    ports:
+      - "8080:8080"
